@@ -7,7 +7,7 @@
 ## it contains Anti-sandbox , if you run it under unperformant Virtual Machine you need to uncomment the code related to Anti-Debuging and Anti-Sandboxing at the beginning of the main and recompile.
 
 
-![MiniDumpVT](https://user-images.githubusercontent.com/110354855/192162534-0d249f3f-2361-44e8-b8b1-efb9df9c69a6.png)
+![MiniLSASS](https://user-images.githubusercontent.com/110354855/192168199-1dec54ff-fbf9-4d20-b407-0408e9f38ba4.png)
 
 
 ![DumpThatLsass](https://user-images.githubusercontent.com/110354855/192162544-f49a10a5-1b6d-42af-98e5-e3d2117dc09d.png)
