@@ -1,7 +1,7 @@
 # DumpThatLSASS
-## Under development from using direct lsass handle to duplicate lsass handle, very soon.  
 ## It's Fully Undetectable and bypass almost all the vendors AV/EDRs, it bypass RunAsPPL    
-## Dumping LSASS by Unhooking MiniDumpWriteDump  by getting a fresh DbgHelp.dll copy from the disk , plus functions and strings obfuscation.  
+## Dumping LSASS by Unhooking MiniDumpWriteDump  by getting a fresh DbgHelp.dll copy from the disk , plus functions and strings obfuscation, duplicate lsass handle from existed processes.  
+## The execution may take time, bcz of sandboxing check  
 
 # NOTICE  
 ## it contains Anti-sandbox , if you run it under unperformant Virtual Machine you need to uncomment the code related to Anti-Debuging and Anti-Sandboxing at the beginning of the main and recompile.
