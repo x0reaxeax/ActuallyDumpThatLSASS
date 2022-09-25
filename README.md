@@ -1,5 +1,5 @@
 # DumpThatLSASS
-## It's Fully Undetectable and bypass almost all the vendors AV/EDRs, it bypass RunAsPPL    
+## It's Fully Undetectable and bypass almost all the vendors AV/EDRs, it doesn't bypass RunAsPPL    
 ## Dumping LSASS by Unhooking MiniDumpWriteDump  by getting a fresh DbgHelp.dll copy from the disk , plus functions and strings obfuscation, duplicate lsass handle from existed processes.  
 ## The execution may take time, bcz of sandboxing check  
 
