@@ -1,4 +1,5 @@
 # DumpThatLSASS
+## Under Development to bypass RunAsPPL and more AVs/EDRs. just wait  (u will get update in Discord or LinkedIn)  
 ## Dumping LSASS by Unhooking MiniDumpWriteDump  by getting a fresh DbgHelp.dll copy from the disk , plus functions and strings obfuscation.  
 
 # NOTICE  
