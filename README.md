@@ -4,7 +4,7 @@
 ## The execution may take time, bcz of sandboxing check  
 
 # NOTICE  
-## it contains Anti-sandbox , if you run it under unperformant Virtual Machine you need to uncomment the code related to Anti-Debuging and Anti-Sandboxing at the beginning of the main and recompile.
+## it contains Anti-sandbox , if you run it under unperformant Virtual Machine you need to comment the code related to Anti-Debuging and Anti-Sandboxing at the beginning of the main and recompile.
 
 
 ![MiniLSASS](https://user-images.githubusercontent.com/110354855/192168199-1dec54ff-fbf9-4d20-b407-0408e9f38ba4.png)
