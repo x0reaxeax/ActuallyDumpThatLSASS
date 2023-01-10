@@ -192,6 +192,8 @@ int UnhookModule(const HMODULE hModule, const LPVOID pMapping) {
 				return EXIT_FAILURE;
 			}
 
+			memcpy((LPVOID) ((DWORD_PTR) hModule + (DWORD_PTR) pish->VirtualAddress), (LPVOID) ((DWORD_PTR) pMapping + (DWORD_PTR) pish->VirtualAddress), pish->Misc.VirtualSize);
+			
 			// restore original protection settings of hDbghelp
 			VirtualProtect_p((LPVOID) ((DWORD_PTR) hModule + (DWORD_PTR) pish->VirtualAddress), pish->Misc.VirtualSize, oldprotect, &oldprotect);
 			if (!oldprotect) {
